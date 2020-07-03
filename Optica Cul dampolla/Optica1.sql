@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Temps de generació: 03-07-2020 a les 21:14:35
+-- Temps de generació: 03-07-2020 a les 22:50:36
 -- Versió del servidor: 10.1.36-MariaDB
 -- Versió de PHP: 7.2.10
 
@@ -88,6 +88,18 @@ CREATE TABLE `color_montura` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de la taula `color_vidre`
+--
+
+CREATE TABLE `color_vidre` (
+  `color_vidre_id` int(11) NOT NULL,
+  `nom_color` varchar(30) NOT NULL,
+  `preu` decimal(10,0) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de la taula `empleat`
 --
 
@@ -147,6 +159,7 @@ CREATE TABLE `model` (
   `id_graduacio_dreta` int(11) NOT NULL,
   `id_graduacio_esq` int(11) NOT NULL,
   `id_color_montura` int(11) NOT NULL,
+  `id_color_vidre` int(11) NOT NULL,
   `preu_basic` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -233,6 +246,12 @@ ALTER TABLE `color_montura`
   ADD PRIMARY KEY (`color_id`);
 
 --
+-- Índexs per a la taula `color_vidre`
+--
+ALTER TABLE `color_vidre`
+  ADD PRIMARY KEY (`color_vidre_id`);
+
+--
 -- Índexs per a la taula `empleat`
 --
 ALTER TABLE `empleat`
@@ -270,7 +289,8 @@ ALTER TABLE `model`
   ADD KEY `id_color_montura` (`id_color_montura`),
   ADD KEY `id_graduacio_dreta` (`id_graduacio_dreta`),
   ADD KEY `id_graduacio_esq` (`id_graduacio_esq`),
-  ADD KEY `id_tipus_montura` (`id_tipus_montura`);
+  ADD KEY `id_tipus_montura` (`id_tipus_montura`),
+  ADD KEY `id_color_vidre` (`id_color_vidre`);
 
 --
 -- Índexs per a la taula `pais`
@@ -323,6 +343,12 @@ ALTER TABLE `client`
 --
 ALTER TABLE `color_montura`
   MODIFY `color_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la taula `color_vidre`
+--
+ALTER TABLE `color_vidre`
+  MODIFY `color_vidre_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la taula `empleat`
@@ -430,7 +456,8 @@ ALTER TABLE `model`
   ADD CONSTRAINT `model_ibfk_2` FOREIGN KEY (`id_color_montura`) REFERENCES `color_montura` (`color_id`),
   ADD CONSTRAINT `model_ibfk_3` FOREIGN KEY (`id_graduacio_dreta`) REFERENCES `vidre_graduat` (`graduacio_id`),
   ADD CONSTRAINT `model_ibfk_4` FOREIGN KEY (`id_graduacio_esq`) REFERENCES `vidre_graduat` (`graduacio_id`),
-  ADD CONSTRAINT `model_ibfk_5` FOREIGN KEY (`id_tipus_montura`) REFERENCES `tipus_montura` (`tipus_montura_id`);
+  ADD CONSTRAINT `model_ibfk_5` FOREIGN KEY (`id_tipus_montura`) REFERENCES `tipus_montura` (`tipus_montura_id`),
+  ADD CONSTRAINT `model_ibfk_6` FOREIGN KEY (`id_color_vidre`) REFERENCES `color_vidre` (`color_vidre_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
